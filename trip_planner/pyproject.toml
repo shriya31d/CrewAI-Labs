@@ -1,0 +1,26 @@
+[project]
+name = "trip_planner"
+version = "0.1.0"
+description = "trip-planner using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "azure-identity>=1.21.0",
+    "crewai[tools]>=0.108.0,<1.0.0",
+    "langchain-openai>=0.2.14",
+    "mlflow>=2.21.3",
+]
+
+[project.scripts]
+trip_planner = "trip_planner.main:run"
+run_crew = "trip_planner.main:run"
+train = "trip_planner.main:train"
+replay = "trip_planner.main:replay"
+test = "trip_planner.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

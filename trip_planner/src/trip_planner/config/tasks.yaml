@@ -1,0 +1,35 @@
+sightseeing_planning_task:
+  description: >
+    Plan sightseeing locations for the traveler based on the destination, age of the traveller , trip duration, and season at the destination.
+    Use the travel date to infer the local season and recommend places that are especially enjoyable during that time of year.
+
+    Traveller's information: 
+
+    - destination{destination}: The travel destination 
+    - age(The traveler's age): {age} 
+    - travel date (The start date of the trip): {start_date} 
+    - trip duration (Total duration of the trip ind days): {trip_duration}
+
+    steps:
+      - Parse the travel_date to determine the season in the destination region.
+      - Identify popular and offbeat sightseeing locations that are best experienced during that season.
+      - Consider the age of the traveler and recommend activities or spots that match their likely energy level and interests.
+      - Ensure the sightseeing plan fits within the trip_duration.
+  expected_output: >
+    A list of sightseeing recommendations with short descriptions, grouped by day.
+    Include brief notes on why each location is ideal for the season and suitable for the traveler's profile.
+
+itinerary_compilation_task:
+  description: >
+     Organize the provided sightseeing locations into a logical, efficient, and enjoyable day-by-day itinerary plan.
+     Take into account the trip duration, distances between locations, and optimal flow of travel for each day.
+
+     steps:
+      - Group sightseeing spots by geographic proximity to minimize travel time between them.
+      - Ensure the total number of locations fits naturally within the trip duration.
+      - Start each day with spots that open earlier and end with relaxing or scenic options (like lakes, gardens, or sunset viewpoints).
+      - Optionally flag “optional/bonus” sights if they are slightly farther or time-permitting.
+      - Once you generate the itinerary,  Updates the 'date' field in each day's plan based on the trip's start_date : {start_date}.
+  expected_output: >
+    A structured day-by-day itinerary plan.
+    Each day includes a list of 2–5 sights (with short descriptions), arranged in optimal visiting order with light notes on travel time or nearby grouping.
