@@ -116,9 +116,13 @@ class SalesFlow(Flow[OrderState]):
 
     # demonstrating parallel execution   
     @listen("success")
-    async def send_invoice_on_email(self):
+    def send_invoice_on_email(self):
         # You can mock DB save or print here for demonstration
-        print(f"EMAIL: Placed order for {self.state.customer_name} with items: {self.state.requested_items}")
+        print(f"✅EMAIL sent: Placed order for {self.state.customer_name} with items: {self.state.requested_items}")
+        file_path = f"order_{self.state.customer_name.replace(' ', '_')}.json"
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(self.state.requested_items.model_dump_json(indent=2))
+        print(f"✅ Order saved to {file_path}")
         self.state.status = "order_placed"
 
     @listen("failed")
